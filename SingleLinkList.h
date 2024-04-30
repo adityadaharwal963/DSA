@@ -27,6 +27,7 @@
 // 17. Deleteat(struct Node **ptr, int pos)
 // 18. reverse(struct Node *ptr)
 // 19. reverseDP(struct Node **ptr)
+// 20. merge(struct Node  * ptr1 , struct Node * ptr2)
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -471,4 +472,35 @@ void reverseDP(struct Node **ptr)   // reverse the link list
             }
             *ptr = prev;
       }
+}
+
+struct Node * merge(struct Node  * ptr1 , struct Node * ptr2){
+      // merge 2 sorted link-list (a linklist Version of mergr function of merge sort) 
+    struct Node * head = NULL; // set new head
+   
+    if(ptr1!=NULL && ptr2!=NULL){  
+        while (ptr1!=NULL&& ptr2!=NULL) { // iterate till one of the list gets ended
+            
+            // insert smaller element in list
+            if((ptr1->data)<(ptr2->data)){
+                head=insertatEnd(head, ptr1->data);
+                ptr1=ptr1->link;
+            }
+            if((ptr1->data)>(ptr2->data)){
+                head=insertatEnd(head, ptr2->data);
+                ptr2=ptr2->link;
+            }
+        }
+
+        //insert remainig element in list 
+        while (ptr1!=NULL) {
+            head=insertatEnd(head, ptr1->data);
+            ptr1=ptr1->link;
+        }
+        while (ptr2!=NULL) {
+            head=insertatEnd(head, ptr2->data);
+            ptr2=ptr2->link;
+        }
+    }
+    return head;
 }
